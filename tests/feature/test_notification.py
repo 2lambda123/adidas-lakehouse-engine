@@ -1,9 +1,12 @@
 """Mail notifications tests."""
 import os
+import pytest
+import typing
+from typing import List, Tuple, Dict
 import re
 import subprocess  # nosec B404
 import time
-import typing
+import typing, List, Dict
 from signal import SIGKILL
 
 import pytest
