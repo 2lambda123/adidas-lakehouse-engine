@@ -10,7 +10,7 @@ import pytest
 
 from lakehouse_engine.core.definitions import TerminatorSpec
 from lakehouse_engine.engine import send_notification
-from lakehouse_engine.terminators.notifiers.email_notifier import EmailNotifier
+from lakehouse_engine.terminators.notifiers.email_notifier import EmailNotifier, send_notification
 from lakehouse_engine.utils.logging_handler import LoggingHandler
 
 LOGGER = LoggingHandler(__name__).get_logger()
