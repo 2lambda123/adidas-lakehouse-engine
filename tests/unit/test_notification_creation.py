@@ -8,7 +8,7 @@ from lakehouse_engine.terminators.notifier import Notifier
 from lakehouse_engine.terminators.notifier_factory import NotifierFactory
 from lakehouse_engine.utils.logging_handler import LoggingHandler
 
-LOGGER = LoggingHandler(__name__).get_logger()
+LOGGER = LoggingHandler(__name__, extra={'group': 'notification_creator'}).get_logger()
 
 
 @pytest.mark.parametrize(
@@ -101,6 +101,7 @@ def test_notification_creation(scenario: dict) -> None:
     if "Error: " in scenario["name"]:
         with pytest.raises(ValueError) as e:
             notifier.create_notification()
+        assert notifier.notification['message'] == scenario['expected']
         assert str(e.value) == scenario["expected"]
     else:
         notifier.create_notification()
