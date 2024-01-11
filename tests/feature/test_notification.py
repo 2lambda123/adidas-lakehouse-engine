@@ -162,7 +162,7 @@ LOGGER = LoggingHandler(__name__).get_logger()
             "spec": TerminatorSpec(
                 function="notify",
                 args={
-                    "server": "smtpgate.emea.adsint.biz",
+                    "server": "localhost",
                     "port": "1025",
                     "type": "email",
                     "from": "test-email@email.com",
@@ -187,7 +187,7 @@ def test_email_notification(scenario: dict) -> None:
     """
     spec: TerminatorSpec = scenario["spec"]
     name = scenario["name"]
-    expected_output = scenario["expected"]
+    expected_output = """{scenario["expected"]}"""
 
     notification_type = spec.args["type"]
 
@@ -202,7 +202,7 @@ def test_email_notification(scenario: dict) -> None:
                 args="python -u -m smtpd -c DebuggingServer -n "
                 f"{server}:{port} > email_output",
                 shell=True,
-                text=True,
+                shell=True,
                 preexec_fn=os.setsid,
             )
 
