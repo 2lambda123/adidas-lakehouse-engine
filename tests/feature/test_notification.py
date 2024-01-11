@@ -428,11 +428,11 @@ def _parse_email_output() -> typing.Tuple[str, list, str, str]:
     """
     mail_content = open("email_output", "r").read()
 
-    email_from = re.search("(?<=From: ).*(?<!')", mail_content).group()
+    email_from = re.search("(?<=From: ).*(?<!')", mail_content).group().strip()
     email_to = re.search("(?<=To: ).*(?<!')", mail_content).group().split(", ")
-    subject = re.search("(?<=Subject: ).*(?<!')", mail_content).group()
+    subject = re.search("(?<=Subject: ).*(?<!')", mail_content).group().strip()
     message = re.findall("(?<=b'').*?(?=b'--=)", mail_content, re.S)[1]
 
-    message = message.replace("b'", "").replace("'\n", "\n")[1:-1]
+    message = message.replace("b'", "").replace("'\n", "\n")[1:-1].strip()
 
     return email_from, email_to, subject, message

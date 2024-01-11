@@ -10,7 +10,17 @@
 
 🚀 Want to find the available releases? Check our release notes on [GitHub](https://github.com/adidas/lakehouse-engine/releases) and [PyPi](https://pypi.org/project/lakehouse-engine/).
 
+💭 In case you have doubts, ideas, want to ask for help or want to discuss different approach and usages, feel free to create a [discussion](https://github.com/adidas/lakehouse-engine/discussions).
+
+⚠️ Are you facing any issues? Open an issue on [GitHub](https://github.com/adidas/lakehouse-engine/issues).
+
+💡 Do you have ideas for new features? Open a feature request on [GitHub](https://github.com/adidas/lakehouse-engine/issues).
+
+🚀 Want to find the available releases? Check our release notes on [GitHub](https://github.com/adidas/lakehouse-engine/releases) and [PyPi](https://pypi.org/project/lakehouse-engine/).
+
 ## Prerequisites
+
+1. Git.
 
 1. Git.
 2. Your IDE of choice with a Python 3 environment (e.g., virtualenv created from the requirements_cicd.txt file).
