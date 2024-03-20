@@ -8,7 +8,7 @@ pytest-cov==4.1.0
 isort==5.12.0
 flake8==6.0.0
 flake8-black==0.3.6
-black==23.3.0 # fixed because flake8-black points always to the latest black
+black==24.3.0 # fixed because flake8-black points always to the latest black
 flake8-builtins==2.1.0
 flake8-bugbear==23.6.5
 flake8-isort==6.0.0
