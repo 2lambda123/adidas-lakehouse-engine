@@ -1,16 +1,19 @@
 """Mail notifications tests."""
 import os
+import pytest
+import typing
+from typing import List, Tuple, Dict
 import re
 import subprocess  # nosec B404
 import time
-import typing
+import typing, List, Dict
 from signal import SIGKILL
 
 import pytest
 
 from lakehouse_engine.core.definitions import TerminatorSpec
 from lakehouse_engine.engine import send_notification
-from lakehouse_engine.terminators.notifiers.email_notifier import EmailNotifier
+from lakehouse_engine.terminators.notifiers.email_notifier import EmailNotifier, send_notification
 from lakehouse_engine.utils.logging_handler import LoggingHandler
 
 LOGGER = LoggingHandler(__name__).get_logger()
@@ -162,7 +165,7 @@ LOGGER = LoggingHandler(__name__).get_logger()
             "spec": TerminatorSpec(
                 function="notify",
                 args={
-                    "server": "smtpgate.emea.adsint.biz",
+                    "server": "localhost",
                     "port": "1025",
                     "type": "email",
                     "from": "test-email@email.com",
@@ -187,7 +190,7 @@ def test_email_notification(scenario: dict) -> None:
     """
     spec: TerminatorSpec = scenario["spec"]
     name = scenario["name"]
-    expected_output = scenario["expected"]
+    expected_output = """{scenario["expected"]}"""
 
     notification_type = spec.args["type"]
 
@@ -202,7 +205,7 @@ def test_email_notification(scenario: dict) -> None:
                 args="python -u -m smtpd -c DebuggingServer -n "
                 f"{server}:{port} > email_output",
                 shell=True,
-                text=True,
+                shell=True,
                 preexec_fn=os.setsid,
             )
 
@@ -428,11 +431,11 @@ def _parse_email_output() -> typing.Tuple[str, list, str, str]:
     """
     mail_content = open("email_output", "r").read()
 
-    email_from = re.search("(?<=From: ).*(?<!')", mail_content).group()
+    email_from = re.search("(?<=From: ).*(?<!')", mail_content).group().strip()
     email_to = re.search("(?<=To: ).*(?<!')", mail_content).group().split(", ")
-    subject = re.search("(?<=Subject: ).*(?<!')", mail_content).group()
+    subject = re.search("(?<=Subject: ).*(?<!')", mail_content).group().strip()
     message = re.findall("(?<=b'').*?(?=b'--=)", mail_content, re.S)[1]
 
-    message = message.replace("b'", "").replace("'\n", "\n")[1:-1]
+    message = message.replace("b'", "").replace("'\n", "\n")[1:-1].strip()
 
     return email_from, email_to, subject, message
